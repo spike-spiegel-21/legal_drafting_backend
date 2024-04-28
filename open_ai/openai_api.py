@@ -4,11 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 client = OpenAI()
 
-
-# A class to handle the openai api
 class OpenAI:
-    
-    #additional code
     def __init__(self):
         self.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -24,5 +20,4 @@ class OpenAI:
         )
         return str(completion.choices[0].message.content)
 
-    
 #print(type(OpenAI().get_response("I have taken the cultfit play pass member ship which charged me around 10000 rs for 3 months. In this memebership I was allowed to play in any of their play centers. At the time of memebership I was using their service for sector 23 which have 3 facaliteis of sports (incl. Badminton, Table Tennis and Lawn Tennis) After having there for around 3 weeks they are shutting down this place due to some reason. When I sad them for the refund the remaining amount they said you can use the service that is available in othr centere which is very far from my current residence. They said that the amound is not refundable.")))
