@@ -1,6 +1,6 @@
 from docx import Document
-from open_ai.openai_api import OpenAI
-import sys
+from langchain_community.llms.fake import FakeListLLM
+
 class DocumentMaker:
     def __init__(self, path):
         self.document = Document(path)
@@ -10,17 +10,18 @@ class DocumentMaker:
         self.document.save(self.new_path)
 
     def replace_common(self, search_text, replace_text):
+        response_str = "fake_llm_res\n"+replace_text
+        responses = [response_str]
+        llm = FakeListLLM(responses = responses)
+        
         for paragraph in self.document.paragraphs:
             for run in paragraph.runs:
-
                 if search_text in run.text:
                     if search_text == "defect_des":
-                        # run.text = OpenAI().get_response(replace_text)
-                        run.text = "gg"
+                        run.text = llm.invoke("gg")
                         break
                     if search_text == "name_of_company":
-                        # run.text = replace_text.upper()
-                        run.text = "gg"
+                        run.text = replace_text.upper()
                         break
                     run.text = replace_text
         self.save()
